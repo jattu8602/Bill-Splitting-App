@@ -137,11 +137,12 @@ const AddFriendForm = ({ onAddFriend }) => {
 
     if (!name || !image) return
 
-    const id = crypto.randomUUID()
+    // Generate a predictable ID based on the name for consistent testing
+    const id = name.toLowerCase().replace(/\s+/g, '')
     const newFriend = {
       id,
       name,
-      image: `${image}?u=${id}`,
+      image: image.includes('?') ? image : `${image}?u=${id}`,
       balance: 0,
     }
 
