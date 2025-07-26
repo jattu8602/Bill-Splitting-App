@@ -94,7 +94,7 @@ body {
   grid-column: 3;
 }
 
-.sidebar > .button {
+.sidebar>.button {
   float: right;
   margin-right: 1.2rem;
 }
@@ -105,6 +105,10 @@ body {
 
 .red {
   color: #e03131;
+}
+
+.even {
+  color: #495057;
 }
 
 form {
@@ -122,6 +126,7 @@ form {
   margin-bottom: 1.6rem;
   padding: 1.2rem;
 }
+
 .form-split-bill {
   grid-template-columns: 1fr 12rem;
   padding: 3.2rem 4rem;
