@@ -137,10 +137,9 @@ const AddFriendForm = ({ onAddFriend }) => {
 
     if (!name || !image) return
 
-    // Generate a predictable ID based on the name for consistent testing
-    const id = name.toLowerCase().replace(/\s+/g, '')
+    // Generate a unique ID based on timestamp to avoid conflicts
+    const id = Date.now() + Math.floor(Math.random() * 1000)
 
-    // Use the image URL exactly as provided by the test
     const newFriend = {
       id,
       name,
