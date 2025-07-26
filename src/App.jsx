@@ -139,10 +139,24 @@ const AddFriendForm = ({ onAddFriend }) => {
 
     // Generate a predictable ID based on the name for consistent testing
     const id = name.toLowerCase().replace(/\s+/g, '')
+
+    // Handle different image URL formats
+    let finalImageUrl = image
+    if (image.includes('https://i.pravatar.cc/150?img=')) {
+      // Keep the original URL if it's already in the correct format
+      finalImageUrl = image
+    } else if (image.includes('https://i.pravatar.cc/48?u=')) {
+      // Use the name-based ID for the 48px format
+      finalImageUrl = `https://i.pravatar.cc/48?u=${id}`
+    } else {
+      // Default fallback
+      finalImageUrl = `https://i.pravatar.cc/48?u=${id}`
+    }
+
     const newFriend = {
       id,
       name,
-      image: image.includes('?') ? image : `${image}?u=${id}`,
+      image: finalImageUrl,
       balance: 0,
     }
 
