@@ -140,18 +140,13 @@ const AddFriendForm = ({ onAddFriend }) => {
     // Generate a predictable ID based on the name for consistent testing
     const id = name.toLowerCase().replace(/\s+/g, '')
 
-    // Handle different image URL formats
+    // Use the image URL as provided, or generate a predictable one
     let finalImageUrl = image
-    if (image.includes('https://i.pravatar.cc/150?img=')) {
-      // Keep the original URL if it's already in the correct format
-      finalImageUrl = image
-    } else if (image.includes('https://i.pravatar.cc/48?u=')) {
-      // Use the name-based ID for the 48px format
-      finalImageUrl = `https://i.pravatar.cc/48?u=${id}`
-    } else {
-      // Default fallback
+    if (image === 'https://i.pravatar.cc/48?u=') {
+      // If it's the default URL, append the ID
       finalImageUrl = `https://i.pravatar.cc/48?u=${id}`
     }
+    // Otherwise, use the image URL as provided (for test cases that set specific URLs)
 
     const newFriend = {
       id,
@@ -181,7 +176,9 @@ const AddFriendForm = ({ onAddFriend }) => {
         value={image}
         onChange={(e) => setImage(e.target.value)}
       />
-      <Button>Add</Button>
+      <button type="submit" className="button">
+        Add
+      </button>
     </form>
   )
 }
@@ -234,7 +231,9 @@ const SplitBillForm = ({ selectedFriend, onSplitBill }) => {
         <option value="friend">{selectedFriend.name}</option>
       </select>
 
-      <Button>split bill</Button>
+      <button type="submit" className="button">
+        split bill
+      </button>
     </form>
   )
 }
