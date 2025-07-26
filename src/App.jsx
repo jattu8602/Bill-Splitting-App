@@ -31,7 +31,12 @@ const App = () => {
   }
 
   function handleAddFriend(friend) {
-    setFriends((friends) => [...friends, friend])
+    console.log('Adding friend:', friend)
+    setFriends((friends) => {
+      const newFriends = [...friends, friend]
+      console.log('Updated friends list:', newFriends)
+      return newFriends
+    })
     setShowAddFriend(false)
   }
 
@@ -135,7 +140,12 @@ const AddFriendForm = ({ onAddFriend }) => {
   function handleSubmit(e) {
     e.preventDefault()
 
-    if (!name || !image) return
+    console.log('Form submitted with name:', name, 'and image:', image)
+
+    if (!name || !image) {
+      console.log('Form validation failed - missing name or image')
+      return
+    }
 
     // Generate a predictable ID based on the name for consistent testing
     const id = name.toLowerCase().replace(/\s+/g, '')
@@ -143,8 +153,13 @@ const AddFriendForm = ({ onAddFriend }) => {
     // Use the image URL as provided, or generate a predictable one
     let finalImageUrl = image
     if (image === 'https://i.pravatar.cc/48?u=') {
-      // If it's the default URL, append the ID
-      finalImageUrl = `https://i.pravatar.cc/48?u=${id}`
+      // If it's the default URL, append the name directly (not the ID)
+      finalImageUrl = `https://i.pravatar.cc/48?u=${name
+        .toLowerCase()
+        .replace(/\s+/g, '')}`
+    } else if (image.includes('https://i.pravatar.cc/150?img=')) {
+      // Keep the original URL if it's already in the correct format
+      finalImageUrl = image
     }
     // Otherwise, use the image URL as provided (for test cases that set specific URLs)
 
@@ -155,6 +170,7 @@ const AddFriendForm = ({ onAddFriend }) => {
       balance: 0,
     }
 
+    console.log('Created new friend:', newFriend)
     onAddFriend(newFriend)
     setName('')
     setImage('https://i.pravatar.cc/48?u=')
